@@ -1,0 +1,60 @@
+ if (!MyAdUnit.CheckData(this).equals("not")) {
+            Toast.makeText(this, MyAdUnit.getBanner(getApplicationContext()), Toast.LENGTH_SHORT).show();
+        } else {
+            JsonParser jsonParser = new JsonParser();
+            jsonParser.execute("https://raw.githubusercontent.com/Applicationslab/Admob-Ads/main/ily-Indian_%20cricket");
+            Toast.makeText(this, "Parsing", Toast.LENGTH_SHORT).show();
+        }
+
+        \\\\\\\\ Class Main
+         public class JsonParser extends AsyncTask<String, Void, JSONObject> {
+
+
+        @Override
+        protected JSONObject doInBackground(String... urls) {
+            try {
+                // Make an HTTP request
+                URL url = new URL(urls[0]);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
+
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+
+                reader.close();
+                connection.disconnect();
+
+                // Parse the JSON response
+                return new JSONObject(response.toString());
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(JSONObject json) {
+            if (json != null) {
+                try {
+                    // Extract information from the JSON object
+                    JSONObject admob = json.getJSONObject("admob");
+
+                    String appId = admob.getString("app-id");
+                    String appOpen = admob.getString("appopen");
+                    String banner = admob.getString("banner");
+                    String interstitial = admob.getString("interstitial");
+                    String nativeAd = admob.getString("native");
+
+                    MyAdUnit.saveData(getApplicationContext(), appId, appOpen, banner, interstitial, nativeAd);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
