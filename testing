@@ -1,0 +1,96 @@
+package com.example.myapplication;
+
+
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.widget.Toast;
+
+public class MyAdUnit {
+    private static final String PREFERENCE_NAME = "MyAdMob";
+    private static final String CheckData = "checking";
+    private static final String AppIDKey = "AppIDKey";
+    private static final String AppOpenKey = "AppOpenKey";
+    private static final String BannerKey = "BannerKey";
+    private static final String InterstitialKey = "InterstitialKey";
+    private static final String NativeAdsKey = "NativeAdsKey";
+    private static final long ONE_DAY_MILLIS = 24 * 60 * 60 * 1000; // 1 day in milliseconds
+
+    public static void saveData(Context context, String appID, String appOpen, String banner, String interstitial, String nativeAds) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString(AppIDKey, appID);
+        editor.putString(AppIDKey, appID);
+        editor.putString(AppOpenKey, appOpen);
+        editor.putString(BannerKey, banner);
+        editor.putString(InterstitialKey, interstitial);
+        editor.putString(NativeAdsKey, nativeAds);
+        editor.putLong(CheckData + "_timestamp", System.currentTimeMillis());
+        editor.apply();
+    }
+
+    public static String CheckData(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+            return preferences.getString(CheckData, "");
+        } else {
+            return "not";
+        }
+    }
+
+    public static String getAppID(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+
+            return preferences.getString(AppIDKey, "");
+        } else {
+            return "Hello";
+        }
+    }
+
+    public static String getAppOpen(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+
+            return preferences.getString(AppOpenKey, "");
+        } else {
+            return "Hello";
+        }
+    }
+
+
+    public static String getBanner(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+
+            return preferences.getString(BannerKey, "");
+        } else {
+            return "hello";
+        }
+    }
+
+    public static String getNative(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+
+            return preferences.getString(NativeAdsKey, "");
+        } else {
+            return "hello";
+        }
+    }
+
+    public static String getInterstitial(Context context) {
+        SharedPreferences preferences = context.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        long timestamp = preferences.getLong(CheckData + "_timestamp", 0);
+        if (System.currentTimeMillis() - timestamp < ONE_DAY_MILLIS) {
+
+            return preferences.getString(InterstitialKey, "");
+        } else {
+            return "hello";
+        }
+    }
+}
