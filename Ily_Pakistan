@@ -1,8 +1,8 @@
 {"admob": {
     "app-id": "ca-app-pub-3043081566262712~2920652084",
     "appopen": "ca-app-pub-3043081566262712/2303357375",
-    "banner": "ca-app-pub-3940256099942544/6300978111",
-    "interstitial": "ca-app-pub-3940256099942544/1033173712",
-    "native": "ca-app-pub-3940256099942544/1044960115"
+    "banner": "/21753324030,22992153171/com.livecricketscore.livecricketapp_Banner",
+    "interstitial": "/21753324030,22992153171/com.livecricketscore.livecricketapp_Interstitial",
+    "native": "/21753324030,22992153171/com.livecricketscore.livecricketapp_Native"
   }
 }
